@@ -1,5 +1,6 @@
 import fs from 'fs';
 import _ from 'lodash';
+import yaml from 'js-yaml';
 
 const types = [
   {
@@ -29,9 +30,19 @@ const types = [
   },
 ];
 
+const parsers = {
+  json: data => JSON.parse(data),
+  yml: data => yaml.safeLoad(data),
+};
+
 export default (fileBefore, fileAfter) => {
-  const objBefore = JSON.parse(fs.readFileSync(fileBefore));
-  const objAfter = JSON.parse(fs.readFileSync(fileAfter));
+  const dataBefore = fs.readFileSync(fileBefore, 'utf8');
+  const dataAfter = fs.readFileSync(fileAfter, 'utf8');
+
+  const fileExtention = _.last(_.words(fileBefore));
+
+  const objBefore = parsers[fileExtention](dataBefore);
+  const objAfter = parsers[fileExtention](dataAfter);
 
   const keys = _.union(_.keys(objBefore), _.keys(objAfter));
 

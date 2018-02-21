@@ -1,0 +1,7 @@
+host: hexlet.io
+timeout: 50
+proxy: 123.234.53.22
+host5: hexlet.ru
+verbose: false
+ets: 33
+play: true
