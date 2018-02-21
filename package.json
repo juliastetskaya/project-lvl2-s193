@@ -1,6 +1,6 @@
 {
   "name": "gendiff-by-juliast",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Second project",
   "main": "dist/index.js",
   "scripts": {
@@ -42,6 +42,7 @@
   "homepage": "https://github.com/juliastetskaya/project-lvl2-s193#readme",
   "dependencies": {
     "commander": "^2.14.1",
+    "ini": "^1.3.5",
     "js-yaml": "^3.10.0",
     "lodash": "^4.17.5",
     "yamljs": "^0.3.0"
