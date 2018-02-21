@@ -1,6 +1,6 @@
 {
   "name": "gendiff-by-juliast",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Second project",
   "main": "dist/index.js",
   "scripts": {
@@ -41,6 +41,7 @@
   },
   "homepage": "https://github.com/juliastetskaya/project-lvl2-s193#readme",
   "dependencies": {
-    "commander": "^2.14.1"
+    "commander": "^2.14.1",
+    "lodash": "^4.17.5"
   }
 }

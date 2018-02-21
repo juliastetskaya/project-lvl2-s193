@@ -1,0 +1,14 @@
+{
+- host: hexlet.io
++ timeout: 85
+- timeout: 50
+- proxy: 123.234.53.22
+- host5: hexlet.ru
++ verbose: true
+- verbose: false
+- ets: 33
+  play: true
++ host6: hexlet.io
++ etc: 33
++ task: winter
+}
