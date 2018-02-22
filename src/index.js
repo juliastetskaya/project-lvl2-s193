@@ -32,9 +32,9 @@ const types = [
 ];
 
 const parsers = {
-  json: data => JSON.parse(data),
-  yml: data => yaml.safeLoad(data),
-  ini: data => ini.parse(data),
+  json: JSON.parse,
+  yml: yaml.safeLoad,
+  ini: ini.parse,
 };
 
 export default (fileBefore, fileAfter) => {
