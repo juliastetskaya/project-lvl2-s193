@@ -2,6 +2,7 @@ import fs from 'fs';
 import _ from 'lodash';
 import yaml from 'js-yaml';
 import ini from 'ini';
+import path from 'path';
 
 const types = [
   {
@@ -41,7 +42,7 @@ export default (fileBefore, fileAfter) => {
   const dataBefore = fs.readFileSync(fileBefore, 'utf8');
   const dataAfter = fs.readFileSync(fileAfter, 'utf8');
 
-  const fileExtention = _.last(_.words(fileBefore));
+  const fileExtention = path.extname(fileBefore).substr(1);
 
   const objBefore = parsers[fileExtention](dataBefore);
   const objAfter = parsers[fileExtention](dataAfter);
