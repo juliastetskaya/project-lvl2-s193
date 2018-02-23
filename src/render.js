@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const isValueObj = (value, type = 'added') => (_.isObject(value) && type !== 'embedded' && type !== 'changed');
+const isValueObj = (value, type) => (_.isObject(value) && type !== 'embedded' && type !== 'changed');
 
 const toStringObj = (value, spaces) => {
   const str = Object.keys(value).map(key => `${' '.repeat(spaces + 4)}${key}: ${value[key]}`).join('\n');
