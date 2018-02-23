@@ -1,42 +1,8 @@
 import fs from 'fs';
-import _ from 'lodash';
-import yaml from 'js-yaml';
-import ini from 'ini';
 import path from 'path';
-
-const types = [
-  {
-    type: 'unchanged',
-    check: (obj1, obj2, key) => (_.has(obj1, key) && _.has(obj2, key)) &&
-      (obj1[key] === obj2[key]),
-    process: (obj1, obj2, key) => `  ${key}: ${obj1[key]}`,
-  },
-
-  {
-    type: 'changed',
-    check: (obj1, obj2, key) => (_.has(obj1, key) && _.has(obj2, key)) &&
-      (obj1[key] !== obj2[key]),
-    process: (obj1, obj2, key) => `+ ${key}: ${obj2[key]}\n- ${key}: ${obj1[key]}`,
-  },
-
-  {
-    type: 'deleted',
-    check: (obj1, obj2, key) => (_.has(obj1, key) && !_.has(obj2, key)),
-    process: (obj1, obj2, key) => `- ${key}: ${obj1[key]}`,
-  },
-
-  {
-    type: 'added',
-    check: (obj1, obj2, key) => (!_.has(obj1, key) && _.has(obj2, key)),
-    process: (obj1, obj2, key) => `+ ${key}: ${obj2[key]}`,
-  },
-];
-
-const parsers = {
-  json: JSON.parse,
-  yml: yaml.safeLoad,
-  ini: ini.parse,
-};
+import getAst from './ast';
+import parsers from './parsers';
+import render from './render';
 
 export default (fileBefore, fileAfter) => {
   const dataBefore = fs.readFileSync(fileBefore, 'utf8');
@@ -47,14 +13,7 @@ export default (fileBefore, fileAfter) => {
   const objBefore = parsers[fileExtention](dataBefore);
   const objAfter = parsers[fileExtention](dataAfter);
 
-  const keys = _.union(_.keys(objBefore), _.keys(objAfter));
+  const ast = getAst(objBefore, objAfter);
 
-  const getType = key => _.find(types, ({ check }) => check(objBefore, objAfter, key));
-
-  const result = keys.reduce((acc, key) => {
-    const handler = getType(key).process;
-    return [...acc, handler(objBefore, objAfter, key)];
-  }, []);
-
-  return `{\n${result.join('\n')}\n}`;
+  return `{\n${render(ast).join('\n')}\n}`;
 };

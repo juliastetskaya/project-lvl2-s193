@@ -2,16 +2,23 @@ import fs from 'fs';
 import genDiff from '../src';
 
 describe('genDiff', () => {
-  it('Files from task', () => {
-    const actual = genDiff('__tests__/__fixtures__/before.ini', '__tests__/__fixtures__/after.ini');
-    const expected = fs.readFileSync('__tests__/__fixtures__/result_set_1.txt', 'utf8');
+  it('JSON', () => {
+    const actual = genDiff('__tests__/__fixtures__/before_tree.json', '__tests__/__fixtures__/after_tree.json');
+    const expected = fs.readFileSync('__tests__/__fixtures__/result_tree.txt', 'utf8');
 
     expect(actual).toBe(expected);
   });
 
-  it('My files', () => {
-    const actual = genDiff('__tests__/__fixtures__/before1.ini', '__tests__/__fixtures__/after1.ini');
-    const expected = fs.readFileSync('__tests__/__fixtures__/result_set_2.txt', 'utf8');
+  it('YML', () => {
+    const actual = genDiff('__tests__/__fixtures__/before_tree.yml', '__tests__/__fixtures__/after_tree.yml');
+    const expected = fs.readFileSync('__tests__/__fixtures__/result_tree.txt', 'utf8');
+
+    expect(actual).toBe(expected);
+  });
+
+  it('INI', () => {
+    const actual = genDiff('__tests__/__fixtures__/before_tree.ini', '__tests__/__fixtures__/after_tree.ini');
+    const expected = fs.readFileSync('__tests__/__fixtures__/result_tree.txt', 'utf8');
 
     expect(actual).toBe(expected);
   });
