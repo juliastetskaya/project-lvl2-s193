@@ -5,33 +5,33 @@ const types = [
     type: 'embedded',
     check: (obj1, obj2, key) => (_.isObject(obj1[key]) && _.isObject(obj2[key])) &&
       !(_.isArray(obj1[key]) && _.isArray(obj2[key])),
-    process: (value1, value2, func) => func(value1, value2),
+    process: (first, second, func) => func(first, second),
   },
 
   {
     type: 'unchanged',
     check: (obj1, obj2, key) => (_.has(obj1, key) && _.has(obj2, key)) &&
       (obj1[key] === obj2[key]),
-    process: value1 => value1,
+    process: (first, second) => ({ oldValue: first, newValue: second }),
   },
 
   {
     type: 'changed',
     check: (obj1, obj2, key) => (_.has(obj1, key) && _.has(obj2, key)) &&
       (obj1[key] !== obj2[key]),
-    process: (value1, value2) => ({ old: value1, new: value2 }),
+    process: (first, second) => ({ oldValue: first, newValue: second }),
   },
 
   {
     type: 'deleted',
     check: (obj1, obj2, key) => (_.has(obj1, key) && !_.has(obj2, key)),
-    process: value1 => value1,
+    process: (first, second) => ({ oldValue: first, newValue: second }),
   },
 
   {
     type: 'added',
     check: (obj1, obj2, key) => (!_.has(obj1, key) && _.has(obj2, key)),
-    process: (value1, value2) => value2,
+    process: (first, second) => ({ oldValue: first, newValue: second }),
   },
 ];
 

@@ -10,8 +10,8 @@ export default (fileBefore, fileAfter) => {
 
   const fileExtention = path.extname(fileBefore).substr(1);
 
-  const objBefore = parsers[fileExtention](dataBefore);
-  const objAfter = parsers[fileExtention](dataAfter);
+  const objBefore = parsers(fileExtention)(dataBefore);
+  const objAfter = parsers(fileExtention)(dataAfter);
 
   const ast = getAst(objBefore, objAfter);
 
