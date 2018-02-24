@@ -2,9 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import getAst from './ast';
 import parsers from './parsers';
-import render from './render';
+import getRenderer from './renderers';
 
-export default (fileBefore, fileAfter) => {
+export default (fileBefore, fileAfter, format) => {
   const dataBefore = fs.readFileSync(fileBefore, 'utf8');
   const dataAfter = fs.readFileSync(fileAfter, 'utf8');
 
@@ -15,5 +15,7 @@ export default (fileBefore, fileAfter) => {
 
   const ast = getAst(objBefore, objAfter);
 
-  return `{\n${render(ast).join('\n')}\n}`;
+  const renderer = getRenderer(format);
+
+  return renderer(ast);
 };

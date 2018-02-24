@@ -4,7 +4,7 @@ install:
 	npm install
 
 start:
-	npm run babel-node -- src/bin/gendiff.js before_tree.ini after_tree.ini
+	npm run babel-node -- src/bin/gendiff.js --format plain before_tree.json after_tree.json
 
 publish:
 	npm publish
