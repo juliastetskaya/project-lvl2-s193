@@ -15,4 +15,11 @@ describe('genDiff', () => {
 
     expect(actual).toBe(expected);
   });
+
+  it('JSON', () => {
+    const actual = genDiff('__tests__/__fixtures__/before_tree.json', '__tests__/__fixtures__/after_tree.json', 'json');
+    const expected = fs.readFileSync('__tests__/__fixtures__/result_json.txt', 'utf8');
+
+    expect(actual).toBe(expected);
+  });
 });
